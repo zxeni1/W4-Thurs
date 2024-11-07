@@ -3,6 +3,7 @@ console.log("Pokemon Journey begins...");
 const encounterButton = document.getElementById("pokemonEncounterButton");
 const pokemonRenderArea = document.getElementById("encounteredPokemonArea");
 const pokemonContainerDiv = document.getElementById("pokemonContainer");
+const encounterGroupButton = document.getElementById("pokemonGroupEncounterButton");
 
 function renderPokemonData(pokemonData){
     if (!pokemonData.name){
@@ -71,7 +72,7 @@ async function getPokemon(){
 
 // encounterButton.addEventListener("click", getPokemon);
 
-encounterButton.addEventListener("click",async (event) => {
+encounterButton.addEventListener("click",async () => {
     console.log("Doing something...");
 
     let pokemonResult = await getPokemon();
@@ -79,4 +80,40 @@ encounterButton.addEventListener("click",async (event) => {
     console.log(pokemonResult);
 
     renderPokemonData(pokemonResult);
+});
+
+encounterGroupButton.addEventListener("click", async () => {
+    pokemonContainerDiv.innerText = "";
+    // From what we've learnt so far
+    // let pokemonResult1 = await getPokemon();
+    // renderPokemonData(pokemonResult1);
+    // let pokemonResult2 = await getPokemon();
+    // renderPokemonData(pokemonResult2);
+    // let pokemonResult3 = await getPokemon();
+    // renderPokemonData(pokemonResult3);
+    // let pokemonResult4 = await getPokemon();
+    // renderPokemonData(pokemonResult4);
+    // let pokemonResult5 = await getPokemon();
+    // renderPokemonData(pokemonResult5);
+    // let pokemonResult6 = await getPokemon();
+    // renderPokemonData(pokemonResult6);
+
+    let multiplePokemonResult = await Promise.all([
+        getPokemon(),
+        getPokemon(),
+        getPokemon(),
+        getPokemon(),
+        getPokemon(),
+        getPokemon()
+    ]);
+
+    // Check if the output is as expected
+    console.log(multiplePokemonResult);
+
+    multiplePokemonResult.forEach(renderPokemonData);
+    
+    // Lengthier version of the above code
+    // multiplePokemonResult.forEach((pokemonResult) => {
+    //     renderPokemonData(pokemonResult);
+    // });
 });
